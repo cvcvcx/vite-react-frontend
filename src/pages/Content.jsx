@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 
-const ReadContent = () => {
+const Content = () => {
   const { control, handleSubmit, reset } = useForm();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -125,6 +125,36 @@ const ReadContent = () => {
               />
             )}
           />
+          <h3>작성일자</h3>
+          <Controller
+            control={control}
+            defaultValue={""}
+            rules={{ required: true }}
+            name="formattedRegDate"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                inputProps={{ readOnly: true }}
+                label="formattedRegDate"
+                fullWidth
+              />
+            )}
+          />
+          <h3>수정일자</h3>
+          <Controller
+            control={control}
+            defaultValue={""}
+            rules={{ required: true }}
+            name="formattedModDate"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                inputProps={{ readOnly: true }}
+                label="formattedModDate"
+                fullWidth
+              />
+            )}
+          />
           {modifyMode ? (
             <Button
               variant="contained"
@@ -160,4 +190,4 @@ const ReadContent = () => {
   );
 };
 
-export default ReadContent;
+export default Content;
