@@ -2,16 +2,17 @@ import * as React from "react";
 
 import Paper from "@mui/material/Paper";
 
-import Orders from "../components/Orders";
-import Layout from "../components/Layout";
+import ListRegisterBtn from "../components/list/ListRegisterBtn";
+import Orders from "../components/list/Orders";
+import Search from "../components/list/Search";
 
 const GuestBookList = () => {
   return (
-    <Layout>
-      <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-        <Orders />
-      </Paper>
-    </Layout>
+    <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+      <Orders />
+      <Search />
+      <ListRegisterBtn />
+    </Paper>
   );
 };
 

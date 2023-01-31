@@ -1,10 +1,8 @@
 import {
   Box,
-  Button,
   FormControl,
   Grid,
   InputLabel,
-  Link,
   MenuItem,
   Pagination,
   Select,
@@ -17,7 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Title from "./Title";
+import Title from "../Title";
 
 export default function Orders() {
   const [list, setList] = useState([]);
@@ -41,9 +39,7 @@ export default function Orders() {
   const handlePageSize = (event) => {
     setPageSize(event.target.value);
   };
-  const handleRegisterBtn = (event) => {
-    navigate("/register");
-  };
+
   const handleIdClick = (id) => {
     navigate("/read", { state: id });
   };
@@ -68,9 +64,11 @@ export default function Orders() {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell>제목</TableCell>
-            <TableCell align="right">작성일자</TableCell>
+            <TableCell width="15%">#</TableCell>
+            <TableCell width="60%">제목</TableCell>
+            <TableCell width="30%" align="right">
+              작성일자
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -101,14 +99,6 @@ export default function Orders() {
           onChange={handlePage}
         />
       </Box>
-      <Grid container justifyContent="flex-end">
-        <Button
-          variant="contained"
-          sx={{ mt: 1, maxWidth: 120 }}
-          onClick={handleRegisterBtn}>
-          제품등록
-        </Button>
-      </Grid>
     </Fragment>
   );
 }
