@@ -88,7 +88,12 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Search size={pageSize} currentPage={currentPage} />
+      <Search
+        size={pageSize}
+        currentPage={currentPage}
+        setList={setList}
+        setTotalPage={setTotalPage}
+      />
       <Box
         display="flex"
         alignItems="center"

@@ -7,13 +7,27 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
-const Search = ({ size, currentPage }) => {
+const Search = ({ size, currentPage, setList, setTotalPage }) => {
   const { control, handleSubmit } = useForm();
   const handleSearchBtnClick = (data) => {
-    console.log(data);
+    JSON.stringify(data);
+    axios
+      .get(`/api/guestbook/list/`, {
+        params: {
+          size: size,
+          page: currentPage,
+          type: data.type,
+          keyword: data.keyword,
+        },
+      })
+      .then((result) => {
+        setList((prev) => result.data.dtoList);
+        setTotalPage((prev) => result.data.totalPage);
+      });
   };
   return (
     <form onSubmit={handleSubmit(handleSearchBtnClick)}>
