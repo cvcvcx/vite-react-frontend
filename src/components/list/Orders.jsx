@@ -16,6 +16,7 @@ import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Title from "../Title";
+import Search from "./Search";
 
 export default function Orders() {
   const [list, setList] = useState([]);
@@ -87,6 +88,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
+      <Search size={pageSize} currentPage={currentPage} />
       <Box
         display="flex"
         alignItems="center"
