@@ -1,7 +1,7 @@
 import { Button, Paper, TextField } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -11,32 +11,34 @@ const Content = () => {
   const { state } = useLocation();
   const [content, setContent] = useState({});
   const [modifyMode, setModifyMode] = useState(false);
+  let disableModifyTime;
 
-  useQuery(
-    ["readContent"],
-    () => axios.get(`/api/guestbook/read/?id=${state}`),
-    {
-      refetchOnWindowFocus: false,
-      retry: 0,
-      onSuccess: (res) => {
-        setContent(() => res.data);
-        reset(res.data);
-      },
-      onError: (e) => {
-        console.log(e.message);
-      },
-    }
-  );
+  useQuery(["readContent"], () => axios.get(`/api/board/read/?id=${state}`), {
+    refetchOnWindowFocus: false,
+    retry: 0,
+    onSuccess: (res) => {
+      setContent(() => res.data);
+      reset(res.data);
+    },
+    onError: (e) => {
+      console.log(e.message);
+    },
+  });
+  useEffect(() => {
+    return () => {
+      clearTimeout(disableModifyTime);
+    };
+  }, []);
 
   const handleOnClickModify = () => {
-    const disableModifyTime = setTimeout(() => {
+    disableModifyTime = setTimeout(() => {
       setModifyMode(true);
     }, 50);
   };
 
   const handleOnClickSubmit = (data) => {
     axios
-      .post(`/api/guestbook/modify/?id=${state}`, data, {
+      .post(`/api/board/modify/?id=${state}`, data, {
         headers: {
           "Content-Type": "application/json;",
         },
@@ -44,6 +46,7 @@ const Content = () => {
       .then((res) => {
         console.log(data);
         alert("수정완료");
+        navigate("/list");
       })
       .catch((e) => {
         console.log(e.message);
@@ -51,7 +54,7 @@ const Content = () => {
   };
   const handleOnClickDelete = () => {
     axios
-      .post(`/api/guestbook/delete/?id=${state}`, {
+      .post(`/api/board/delete/?id=${state}`, {
         headers: {
           "Content-Type": "application/json;",
         },
@@ -112,7 +115,7 @@ const Content = () => {
           control={control}
           defaultValue={""}
           rules={{ required: true }}
-          name="writer"
+          name="writerName"
           render={({ field }) => (
             <TextField
               {...field}

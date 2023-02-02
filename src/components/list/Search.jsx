@@ -11,17 +11,28 @@ import axios from "axios";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
-const Search = ({ size, currentPage, setList, setTotalPage }) => {
+const Search = ({
+  size,
+  currentPage,
+  searchType,
+  searchKeyword,
+  setList,
+  setTotalPage,
+  setSearchType,
+  setSearchKeyword,
+}) => {
   const { control, handleSubmit } = useForm();
   const handleSearchBtnClick = (data) => {
     JSON.stringify(data);
+    setSearchKeyword((prev) => data.keyword);
+    setSearchType((prev) => data.type);
     axios
-      .get(`/api/guestbook/list/`, {
+      .get(`/api/board/list/`, {
         params: {
           size: size,
           page: currentPage,
-          type: data.type,
-          keyword: data.keyword,
+          type: searchType,
+          keyword: searchKeyword,
         },
       })
       .then((result) => {
@@ -48,6 +59,7 @@ const Search = ({ size, currentPage, setList, setTotalPage }) => {
                 <MenuItem value={"c"}>내용</MenuItem>
                 <MenuItem value={"w"}>작성자</MenuItem>
                 <MenuItem value={"tc"}>제목+내용</MenuItem>
+                <MenuItem value={"tcw"}>제목+내용+작성자</MenuItem>
               </Select>
             )}
           />

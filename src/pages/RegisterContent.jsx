@@ -10,7 +10,7 @@ const RegisterContent = () => {
   const handleOnSubmit = (event) => {
     console.log(event);
     axios
-      .post("/api/guestbook/register", JSON.stringify(event), {
+      .post("/api/board/register", JSON.stringify(event), {
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,9 +58,9 @@ const RegisterContent = () => {
           control={control}
           defaultValue={""}
           rules={{ required: true }}
-          name="writer"
+          name="writerEmail"
           render={({ field }) => (
-            <TextField {...field} label="writer" fullWidth />
+            <TextField {...field} label="writerEmail" fullWidth />
           )}
         />
 

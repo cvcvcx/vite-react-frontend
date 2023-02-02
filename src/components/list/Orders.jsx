@@ -23,10 +23,14 @@ export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(15);
   const [totalPage, setTotalPage] = useState(1);
+  const [searchType, setSearchType] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
   const navigate = useNavigate();
   const getGuestBookDateList = () => {
     axios
-      .get(`/api/guestbook/list?page=${currentPage}&size=${pageSize}`)
+      .get(
+        `/api/board/list?page=${currentPage}&size=${pageSize}&type=${searchType}&keyword=${searchKeyword}`
+      )
       .then((result) => {
         setList((prev) => result.data.dtoList);
         setTotalPage((prev) => result.data.totalPage);
@@ -66,8 +70,10 @@ export default function Orders() {
         <TableHead>
           <TableRow>
             <TableCell width="15%">#</TableCell>
-            <TableCell width="60%">제목</TableCell>
-            <TableCell width="30%" align="right">
+            <TableCell width="35%">제목</TableCell>
+            <TableCell width="5%"></TableCell>
+            <TableCell width="10%">작성자</TableCell>
+            <TableCell width="20%" align="right">
               작성일자
             </TableCell>
           </TableRow>
@@ -76,13 +82,16 @@ export default function Orders() {
           {list.map((item) => (
             <TableRow
               hover
-              key={item.id}
+              key={item.bno}
               onClick={() => {
-                console.log(item.id);
-                handleIdClick(item.id);
+                handleIdClick(item.bno);
               }}>
-              <TableCell>{item.id}</TableCell>
+              <TableCell>{item.bno}</TableCell>
               <TableCell>{item.title}</TableCell>
+              <TableCell>
+                <b>[{item.replyCount}]</b>
+              </TableCell>
+              <TableCell>{item.writerName}</TableCell>
               <TableCell align="right">{item.formattedRegDate}</TableCell>
             </TableRow>
           ))}
@@ -93,6 +102,10 @@ export default function Orders() {
         currentPage={currentPage}
         setList={setList}
         setTotalPage={setTotalPage}
+        searchType={searchType}
+        setSearchType={setSearchType}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
       />
       <Box
         display="flex"
