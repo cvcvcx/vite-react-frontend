@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import ReplyForm from "../components/reply/ReplyForm";
 
 const Content = () => {
   const { control, handleSubmit, reset } = useForm();
@@ -13,17 +14,22 @@ const Content = () => {
   const [modifyMode, setModifyMode] = useState(false);
   let disableModifyTime;
 
-  useQuery(["readContent"], () => axios.get(`/api/board/read/?id=${state}`), {
-    refetchOnWindowFocus: false,
-    retry: 0,
-    onSuccess: (res) => {
-      setContent(() => res.data);
-      reset(res.data);
-    },
-    onError: (e) => {
-      console.log(e.message);
-    },
-  });
+  const queryFetch = useQuery(
+    ["readContent"],
+    () => axios.get(`/api/board/read/?id=${state}`),
+    {
+      refetchOnWindowFocus: false,
+      retry: 0,
+      onSuccess: (res) => {
+        setContent(() => res.data);
+        console.log(res.data);
+        reset(res.data);
+      },
+      onError: (e) => {
+        console.log(e.message);
+      },
+    }
+  );
   useEffect(() => {
     return () => {
       clearTimeout(disableModifyTime);
@@ -155,6 +161,7 @@ const Content = () => {
             />
           )}
         />
+
         {modifyMode ? (
           <Button
             variant="contained"
@@ -185,6 +192,7 @@ const Content = () => {
           목록
         </Button>
       </form>
+      <ReplyForm bno={content.bno} />
     </Paper>
   );
 };
