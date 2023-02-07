@@ -36,9 +36,15 @@ export default function Orders() {
         setTotalPage((prev) => result.data.totalPage);
       });
   };
-  useEffect(getGuestBookDateList, [currentPage, pageSize]);
-  const handlePage = (event) => {
-    const nowPageInt = parseInt(event.target.outerText);
+  //검색항목이나, 크기가 달라졌을때 다시 페이지를 로딩
+  useEffect(getGuestBookDateList, [
+    currentPage,
+    pageSize,
+    searchKeyword,
+    searchType,
+  ]);
+  const handlePage = (event, page) => {
+    const nowPageInt = parseInt(page);
     setCurrentPage(nowPageInt);
   };
   const handlePageSize = (event) => {

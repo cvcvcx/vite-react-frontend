@@ -23,7 +23,6 @@ const Search = ({
 }) => {
   const { control, handleSubmit } = useForm();
   const handleSearchBtnClick = (data) => {
-    JSON.stringify(data);
     setSearchKeyword((prev) => data.keyword);
     setSearchType((prev) => data.type);
     axios
