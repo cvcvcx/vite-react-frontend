@@ -1,4 +1,5 @@
 import React from "react";
+// import { Route, Routes } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import Content from "./pages/Content";
@@ -8,7 +9,7 @@ import RegisterContent from "./pages/RegisterContent";
 const App = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path={("/login", "/")} element={<Login />} />
       <Route element={<Layout />}>
         <Route path="/list" element={<GuestBookList />} />
         <Route path="/register" element={<RegisterContent />} />

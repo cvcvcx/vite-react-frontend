@@ -65,7 +65,7 @@ const Login = () => {
               <Link>Forget password?</Link>
             </Grid>
             <Grid item xs>
-              <Link href="/list">Go List</Link>
+              <Link href="#/list">Go List</Link>
             </Grid>
             <Grid item>
               <Link>Sign UP</Link>
