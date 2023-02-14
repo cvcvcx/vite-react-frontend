@@ -71,7 +71,7 @@ const ReplyForm = ({ bno }) => {
           </Button>
         </div>
       </form>
-      {/* 아래 reverse를 통해 최근 등록된 댓글이 가장 위로 올 수 있도록함 */}
+      {/* 아래 reverse를 통해 최근 등록된 댓글이 가장 위로 올 수 있도록dd함 */}
       {[...replies].reverse().map((item) => (
         <ReplyCard
           key={item.rno}
