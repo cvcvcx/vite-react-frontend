@@ -8,6 +8,7 @@ import ReplyForm from "../components/reply/ReplyForm";
 
 const Content = () => {
   const { control, handleSubmit, reset } = useForm();
+  // 주석을 추가한다
   const navigate = useNavigate();
   const { state } = useLocation();
   const [content, setContent] = useState({});
@@ -25,7 +26,6 @@ const Content = () => {
       retry: 0,
       onSuccess: (res) => {
         setContent(() => res.data);
-        console.log(res.data);
         reset(res.data);
       },
       onError: (e) => {
