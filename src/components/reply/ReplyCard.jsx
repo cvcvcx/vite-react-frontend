@@ -28,6 +28,7 @@ const style = {
 const ReplyCard = ({ data, setReplies }) => {
   const [isModify, setIsModify] = useState(false);
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
 
   const {
     register,
@@ -42,7 +43,9 @@ const ReplyCard = ({ data, setReplies }) => {
     setIsModify(false);
   };
   const handleOnClickReplyDeleteBtn = () => {
-    axios.delete(`/api/replies/${data.rno}`).then((res) => console.log(res));
+    axios
+      .delete(`${apiUrl}/replies/${data.rno}`)
+      .then((res) => console.log(res));
     setReplies((prev) => prev.filter((i) => i.rno !== data.rno));
   };
 
@@ -50,7 +53,7 @@ const ReplyCard = ({ data, setReplies }) => {
     const postData = { ...formData, rno: data.rno, bno: data.bno };
     console.log(postData);
     axios
-      .put(`/api/replies/${data.rno}`, JSON.stringify(postData), {
+      .put(`${apiUrl}/replies/${data.rno}`, JSON.stringify(postData), {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },

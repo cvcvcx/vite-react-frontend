@@ -8,7 +8,8 @@
     "build": "vite build",
     "postbuild": "cp dist/index.html dist/404.html",
     "preview": "vite preview",
-    "deploy":"gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -33,5 +34,5 @@
     "eslint-config-react-app": "^7.0.1",
     "vite": "^4.0.0"
   },
-  "homepage": "http://cvcvcx.github.io/vite-react-frontend"
+  "homepage": "https://cvcvcx.github.io/vite-react-frontend"
 }

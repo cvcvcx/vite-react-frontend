@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterContent = () => {
   const { control, handleSubmit } = useForm();
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
   const navigate = useNavigate();
   const handleOnSubmit = (event) => {
     console.log(event);
     axios
-      .post("/api/board/register", JSON.stringify(event), {
+      .post(`${apiUrl}/board/register`, JSON.stringify(event), {
         headers: {
           "Content-Type": "application/json",
         },

@@ -21,12 +21,13 @@ const Search = ({
   setSearchType,
   setSearchKeyword,
 }) => {
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
   const { control, handleSubmit } = useForm();
   const handleSearchBtnClick = (data) => {
     setSearchKeyword((prev) => data.keyword);
     setSearchType((prev) => data.type);
     axios
-      .get(`/api/board/list/`, {
+      .get(`${apiUrl}/board/list/`, {
         params: {
           size: size,
           page: currentPage,

@@ -13,11 +13,10 @@ const ReplyForm = ({ bno }) => {
     handleSubmit,
   } = useForm();
   const [replies, setReplies] = useState([]);
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
   useEffect(() => {
-    console.log(bno);
     if (bno != null) {
-      axios.get(`/api/replies/board/${bno}`).then((res) => {
-        console.log(res.data);
+      axios.get(`${apiUrl}/replies/board/${bno}`).then((res) => {
         setReplies(res.data);
       });
     }
@@ -25,9 +24,8 @@ const ReplyForm = ({ bno }) => {
 
   const handleReplyOnSubmit = (data) => {
     const postData = { ...data, bno: bno };
-    console.log(postData);
     axios
-      .post("/api/replies/", JSON.stringify(postData), {
+      .post(`${apiUrl}/replies/`, JSON.stringify(postData), {
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
         },
@@ -71,7 +69,7 @@ const ReplyForm = ({ bno }) => {
           </Button>
         </div>
       </form>
-      {/* 아래 reverse를 통해 최근 등록된 댓글이 가장 위로 올 수 있도록dd함 */}
+      {/* 아래 reverse를 통해 최근 등록된 댓글이 가장 위로 올 수 있도록함 */}
       {[...replies].reverse().map((item) => (
         <ReplyCard
           key={item.rno}

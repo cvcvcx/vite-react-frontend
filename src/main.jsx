@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="http://cvcvcx.github.io/vite-react-frontend">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </QueryClientProvider>

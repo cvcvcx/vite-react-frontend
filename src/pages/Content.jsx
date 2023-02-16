@@ -12,11 +12,14 @@ const Content = () => {
   const { state } = useLocation();
   const [content, setContent] = useState({});
   const [modifyMode, setModifyMode] = useState(false);
+
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
+
   let disableModifyTime;
 
   const queryFetch = useQuery(
     ["readContent"],
-    () => axios.get(`/api/board/read/?id=${state}`),
+    () => axios.get(`${apiUrl}/board/read/?id=${state}`),
     {
       refetchOnWindowFocus: false,
       retry: 0,
@@ -44,7 +47,7 @@ const Content = () => {
 
   const handleOnClickSubmit = (data) => {
     axios
-      .post(`/api/board/modify/?id=${state}`, data, {
+      .post(`${apiUrl}/board/modify/?id=${state}`, data, {
         headers: {
           "Content-Type": "application/json;",
         },
@@ -60,7 +63,7 @@ const Content = () => {
   };
   const handleOnClickDelete = () => {
     axios
-      .post(`/api/board/delete/?id=${state}`, {
+      .post(`${apiUrl}/board/delete/?id=${state}`, {
         headers: {
           "Content-Type": "application/json;",
         },

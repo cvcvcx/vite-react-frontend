@@ -26,10 +26,11 @@ export default function Orders() {
   const [searchType, setSearchType] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_PRODUCTION_API_URL;
   const getGuestBookDateList = () => {
     axios
       .get(
-        `/api/board/list?page=${currentPage}&size=${pageSize}&type=${searchType}&keyword=${searchKeyword}`
+        `${apiUrl}/board/list?page=${currentPage}&size=${pageSize}&type=${searchType}&keyword=${searchKeyword}`
       )
       .then((result) => {
         setList((prev) => result.data.dtoList);
